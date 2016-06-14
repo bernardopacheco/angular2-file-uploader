@@ -26,6 +26,8 @@ export class FileUploaderService {
     this.options = { url: options.url };
     this.options.method = !options.method ? 'post' : options.method.toLowerCase();
     this.options.autoUpload = !options.autoUpload ? false : options.autoUpload;
+    this.options.authTokenPrefix = !options.authTokenPrefix ? 'Bearer' : options.authTokenPrefix;
+    this.options.authToken = options.authToken;
   }
 
   addFilesToQueue(files: FileList): void {
@@ -62,6 +64,11 @@ export class FileUploaderService {
     };
 
     xhr.open(this.options.method, this.options.url, true);
+
+    if (this.options.authToken) {
+      xhr.setRequestHeader('Authorization', `${this.options.authTokenPrefix} ${this.options.authToken}`);
+    }
+
     xhr.send(form);
   }
 }
