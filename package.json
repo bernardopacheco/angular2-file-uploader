@@ -4,11 +4,13 @@
   "description": "Angular 2 file upload component.",
   "scripts": {
     "lint": "tslint ./src/**/*.ts -t verbose",
+    "clean": "rm -rf dist",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "bundle": "rm -rf dist && npm run tsc"
+    "build": "npm run lint && npm run clean && npm run tsc",
+    "build:w": "npm run lint && npm run clean && npm run tsc:w"
   },
   "typings": "dist/index",
   "keywords": [
