@@ -1,5 +1,5 @@
 {
-  "name": "bp-file-uploader",
+  "name": "angular2-file-uploader",
   "version": "0.1.0",
   "description": "Angular 2 file upload component.",
   "scripts": {
@@ -7,17 +7,20 @@
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "typings"
+    "typings": "typings",
+    "bundle": "rm -rf dist && npm run tsc"
   },
+  "typings": "dist/index",
   "keywords": [
     "ng2",
     "angular",
     "angular2",
+    "angular 2",
     "file",
     "upload",
     "uploader"
   ],
-  "author": "Bernardo Pacheco ",
+  "author": "Bernardo Pacheco",
   "license": "MIT",
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",
@@ -38,6 +41,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:bernardopacheco/bp-file-uploader.git"
+    "url": "git@github.com:bernardopacheco/angular2-file-uploader.git"
   }
 }
