@@ -28,11 +28,12 @@ export class FileUploaderService {
     this.options.autoUpload = !options.autoUpload ? false : options.autoUpload;
     this.options.authTokenPrefix = !options.authTokenPrefix ? 'Bearer' : options.authTokenPrefix;
     this.options.authToken = options.authToken;
+    this.options.fileTypePatterns = options.fileTypePatterns;
   }
 
-  addFilesToQueue(files: FileList): void {
+  addFileToQueue(file: File): void {
     if (this.options.autoUpload) {
-      this.upload(files[0]);
+      this.upload(file);
     }
 
     // todo:

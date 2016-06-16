@@ -1,7 +1,8 @@
 export interface UploadOptions {
-  url: string;
+  url?: string;
   method?: string;
   autoUpload?: boolean;
   authTokenPrefix?: string;
   authToken?: string;
+  fileTypePatterns?: string[];
 }

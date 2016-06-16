@@ -1,37 +1,42 @@
 import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { FileUploaderService } from './file-uploader.service';
+import { FileValidatorService } from './file-validator.service';
 import { UploadOptions } from './upload-options';
 
 @Directive({
   selector: '[bpFileSelect]',
   host: { '(change)': 'onFiles()' },
-  providers: [FileUploaderService]
+  providers: [FileUploaderService, FileValidatorService]
 })
 export class FileSelectDirective {
-  private el: ElementRef;
-  private fileUploaderService: FileUploaderService;
-
   @Input() set uploadOptions(options: UploadOptions) {
     this.fileUploaderService.setOptions(options);
+    this.fileValidatorService.setOptions(options);
   }
 
   @Output() onSuccess = new EventEmitter<any>();
-  @Output() onError = new EventEmitter<ProgressEvent>();
+  @Output() onUploadError = new EventEmitter<ProgressEvent>();
+  @Output() onFileTypeError = new EventEmitter<File>();
   @Output() onProgress = new EventEmitter<number>();
 
-  constructor(private _el: ElementRef, private _fileUploaderService: FileUploaderService) {
-    this.el = _el;
-    this.fileUploaderService = _fileUploaderService;
+  constructor(
+      private el: ElementRef,
+      private fileUploaderService: FileUploaderService,
+      private fileValidatorService: FileValidatorService) {
     this.fileUploaderService.onSuccess$.subscribe((response: any) => this.onSuccess.emit(response));
-    this.fileUploaderService.onError$.subscribe((error: ProgressEvent) => this.onError.emit(error));
+    this.fileUploaderService.onError$.subscribe((error: ProgressEvent) => this.onUploadError.emit(error));
     this.fileUploaderService.onProgress$.subscribe((percentComplete: number) => this.onProgress.emit(percentComplete));
   }
 
   onFiles(): void {
     let files: FileList = this.el.nativeElement.files;
 
-    if (files.length) {
-      this.fileUploaderService.addFilesToQueue(files);
+    for (let i = 0; i < files.length; i++) {
+      if (this.fileValidatorService.isFileTypeValid(files[i])) {
+        this.fileUploaderService.addFileToQueue(files[i]);
+      } else {
+        this.onFileTypeError.emit(files[i]);
+      }
     }
   }
 }
