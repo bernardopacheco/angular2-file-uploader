@@ -15,7 +15,7 @@ export class FileSelectDirective {
   }
 
   @Output() onSuccess = new EventEmitter<any>();
-  @Output() onUploadError = new EventEmitter<ProgressEvent>();
+  @Output() onUploadError = new EventEmitter<string>();
   @Output() onFileTypeError = new EventEmitter<File>();
   @Output() onProgress = new EventEmitter<number>();
 
@@ -24,7 +24,7 @@ export class FileSelectDirective {
       private fileUploaderService: FileUploaderService,
       private fileValidatorService: FileValidatorService) {
     this.fileUploaderService.onSuccess$.subscribe((response: any) => this.onSuccess.emit(response));
-    this.fileUploaderService.onError$.subscribe((error: ProgressEvent) => this.onUploadError.emit(error));
+    this.fileUploaderService.onError$.subscribe((error: string) => this.onUploadError.emit(error));
     this.fileUploaderService.onProgress$.subscribe((percentComplete: number) => this.onProgress.emit(percentComplete));
   }
 

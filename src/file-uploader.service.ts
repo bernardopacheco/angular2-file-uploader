@@ -7,11 +7,11 @@ import { Observable } from 'rxjs/Observable';
 export class FileUploaderService {
   private options: UploadOptions;
   private onSuccessSource: Subject<any> = new Subject<any>();
-  private onErrorSource: Subject<ProgressEvent> = new Subject<ProgressEvent>();
+  private onErrorSource: Subject<string> = new Subject<string>();
   private onProgressSource: Subject<number> = new Subject<number>();
 
   onSuccess$: Observable<any> = this.onSuccessSource.asObservable();
-  onError$: Observable<ProgressEvent> = this.onErrorSource.asObservable();
+  onError$: Observable<string> = this.onErrorSource.asObservable();
   onProgress$: Observable<number> = this.onProgressSource.asObservable();
 
   setOptions(options: UploadOptions): void {
@@ -49,12 +49,12 @@ export class FileUploaderService {
 
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        this.onSuccessSource.next(xhr.response);
+        if (xhr.status === 200) {
+          this.onSuccessSource.next(xhr.response);
+        } else {
+          this.onErrorSource.next(xhr.response);
+        }
       }
-    };
-
-    xhr.upload.onerror = (error: ProgressEvent) => {
-      this.onErrorSource.next(error);
     };
 
     xhr.upload.onprogress = (event: ProgressEvent) => {
