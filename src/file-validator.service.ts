@@ -14,9 +14,6 @@ export class FileValidatorService {
       return true;
     }
 
-    let allowedExtensions = this.options.fileTypePatterns.join('|');
-    let regexPattern = new RegExp(`\.(${allowedExtensions})$`);
-
-    return regexPattern.test(file.name);
+    return this.options.fileTypePatterns.test(file.name);
   }
 }

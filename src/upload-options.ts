@@ -4,5 +4,5 @@ export interface UploadOptions {
   autoUpload?: boolean;
   authTokenPrefix?: string;
   authToken?: string;
-  fileTypePatterns?: string[];
+  fileTypePatterns?: RegExp;
 }
