@@ -1,6 +1,6 @@
 {
   "name": "angular2-file-uploader",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Angular 2 file upload component.",
   "scripts": {
     "lint": "tslint ./src/**/*.ts -t verbose",
@@ -10,6 +10,7 @@
     "build": "npm run lint && npm run clean && npm run tsc",
     "build:w": "npm run lint && npm run clean && npm run tsc:w"
   },
+  "typings": "dist/index",
   "keywords": [
     "ng2",
     "angular",
@@ -29,7 +30,6 @@
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@types/node": "^6.0.52",
-    "@types/core-js": "^0.9.35",
     "rxjs": "5.0.1",
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
