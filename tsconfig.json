@@ -12,5 +12,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "outDir": "dist"
+  },
+  "angularCompilerOptions": {
+    "genDir": "aot"
   }
 }
