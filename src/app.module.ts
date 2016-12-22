@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
-import { FileSelectDirective }  from './file-select.directive';
+import { FileSelectDirective } from './file-select.directive';
 
 @NgModule({
-  imports:      [ BrowserModule ],
-  declarations: [ FileSelectDirective ]
+  imports: [ CommonModule ],
+  declarations: [ FileSelectDirective ],
+  exports: [ FileSelectDirective, CommonModule ]
 })
-export class AppModule { }
+export class FileUploaderModule { }
