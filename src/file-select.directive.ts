@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+
 import { FileUploaderService } from './file-uploader.service';
 import { FileValidatorService } from './file-validator.service';
 import { UploadOptions } from './upload-options';
