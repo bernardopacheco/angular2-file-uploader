@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, Output, EventEmitter } from '@angular/core';
 
 import { FileUploaderService } from './file-uploader.service';
 import { FileValidatorService } from './file-validator.service';
@@ -6,7 +6,6 @@ import { UploadOptions } from './upload-options';
 
 @Directive({
   selector: '[bpFileSelect]',
-  host: { '(change)': 'onFiles()' },
   providers: [FileUploaderService, FileValidatorService]
 })
 export class FileSelectDirective {
@@ -29,7 +28,7 @@ export class FileSelectDirective {
     this.fileUploaderService.onProgress$.subscribe((percentComplete: number) => this.onProgress.emit(percentComplete));
   }
 
-  onFiles(): void {
+  @HostListener('change') onFiles(): void {
     let files: FileList = this.el.nativeElement.files;
 
     for (let i = 0; i < files.length; i++) {
